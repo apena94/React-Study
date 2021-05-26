@@ -21,26 +21,36 @@ class App extends React.Component {
         super(props); // overrriding constructor Fx of React.Component parent class
 
         // only time we do direct assignment**
-        this.state = { lat: null };
+        this.state = { lat: null, errorMsg: '' };
 
+        // loads after jsx rendered, and set state causes jsx to rerender
         window.navigator.geolocation.getCurrentPosition(
             position => {
                 //this.state.lat = x DOESNT WORK
                 // this calls to auto render
                 this.setState({ lat: position.coords.latitude });
             },
-            err => console.log(err)
+            err => {
+                this.setState({ errorMsg: err.message });
+            }
         );
     }
 
     // react required, called frequently*
     render() {
 
-        return <div>Latitude: {this.state.lat}</div>
+        // conditional loading
+        if (this.state.errorMsg && !this.state.lat) {
+            return <div> Error: {this.state.errorMsg} </div>
+        } else if(this.state.lat && !this.state.errorMsg) {
+            return <div>Latitude: {this.state.lat}</div>
+        } else {
+            return <div>Loading!</div>
+        }
     }
 }
 
 ReactDOM.render(
-    <App/>,
+    <App />,
     document.querySelector('#root')
 );

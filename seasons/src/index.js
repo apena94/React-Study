@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
 
 // will determine location + month
 // const App = () => {
@@ -24,7 +25,7 @@ class App extends React.Component {
     //     this.state = { lat: null, errorMsg: '' };
     // }
 
-    state = { lat: null, errorMsg: '' };
+    state = { lat: null, errorMsg: '' }; // Babel turns into constructor
 
     componentDidMount() {
 
@@ -52,7 +53,8 @@ class App extends React.Component {
         if (this.state.errorMsg && !this.state.lat) {
             return <div> Error: {this.state.errorMsg} </div>
         } else if (this.state.lat && !this.state.errorMsg) {
-            return <div>Latitude: {this.state.lat}</div>
+            // return <div>Latitude: {this.state.lat}</div>
+            return <SeasonDisplay lat={this.state.lat}/>
         } else {
             return <div>Loading!</div>
         }

@@ -63,6 +63,8 @@ class App extends React.Component {
 
     // react required, called frequently*
     render() {
+
+        // avoiding return and conditional render to allow for repeated outer html 
         return (
             <div className="border red">
                 {this.renderContent()}

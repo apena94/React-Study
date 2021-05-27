@@ -17,11 +17,16 @@ import ReactDOM from 'react-dom';
 //valid class based component 1) JS class, extends(subclass react comp), render method returning JSX
 class App extends React.Component {
     // js not requ
-    constructor(props) {
-        super(props); // overrriding constructor Fx of React.Component parent class
+    // constructor(props) {
+    //     super(props); // overrriding constructor Fx of React.Component parent class
 
-        // only time we do direct assignment**
-        this.state = { lat: null, errorMsg: '' };
+    //     // only time we do direct assignment**
+    //     this.state = { lat: null, errorMsg: '' };
+    // }
+
+    state = { lat: null, errorMsg: '' };
+
+    componentDidMount() {
 
         // loads after jsx rendered, and set state causes jsx to rerender
         window.navigator.geolocation.getCurrentPosition(
@@ -36,13 +41,17 @@ class App extends React.Component {
         );
     }
 
+    // componentDidUpdate() {
+    //     console.log('comp did uodate!!!')
+    // }
+
     // react required, called frequently*
     render() {
 
         // conditional loading
         if (this.state.errorMsg && !this.state.lat) {
             return <div> Error: {this.state.errorMsg} </div>
-        } else if(this.state.lat && !this.state.errorMsg) {
+        } else if (this.state.lat && !this.state.errorMsg) {
             return <div>Latitude: {this.state.lat}</div>
         } else {
             return <div>Loading!</div>

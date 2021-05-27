@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 // will determine location + month
 // const App = () => {
@@ -46,18 +47,27 @@ class App extends React.Component {
     //     console.log('comp did uodate!!!')
     // }
 
-    // react required, called frequently*
-    render() {
+
+    renderContent() {
 
         // conditional loading
         if (this.state.errorMsg && !this.state.lat) {
             return <div> Error: {this.state.errorMsg} </div>
         } else if (this.state.lat && !this.state.errorMsg) {
             // return <div>Latitude: {this.state.lat}</div>
-            return <SeasonDisplay lat={this.state.lat}/>
+            return <SeasonDisplay lat={this.state.lat} />
         } else {
-            return <div>Loading!</div>
+            return <Spinner message="Please accept location request" />
         }
+    }
+
+    // react required, called frequently*
+    render() {
+        return (
+            <div className="border red">
+                {this.renderContent()}
+            </div>
+        );
     }
 }
 
